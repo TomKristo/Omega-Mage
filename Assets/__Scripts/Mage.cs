@@ -10,6 +10,16 @@ public enum MPhase
     drag
 }
 
+public enum ElementType
+{
+    earth,
+    water,
+    air,
+    fire,
+    aether,
+    none
+}
+
 [System.Serializable]
 public class MouseInfo
 {

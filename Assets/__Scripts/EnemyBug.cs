@@ -5,9 +5,12 @@ using UnityEngine;
 public class EnemyBug : PT_MonoBehaviour {
     public float speed = 0.5f;
     public float health = 10;
+    public float damageScale = 0.8f;
+    public float damageScaleDuration = 0.25f;
 
     public bool ________________;
 
+    private float damageScaleStartTime;
     private float _maxHealth;
     public Vector3 walkTarget;
     public bool walking;
@@ -112,6 +115,19 @@ public class EnemyBug : PT_MonoBehaviour {
         {
             dmg += entry.Value;
         }
+
+        if (dmg > 0)
+        {
+            if (characterTrans.localScale == Vector3.one)
+            {
+                damageScaleStartTime = Time.time;
+            }
+        }
+
+        float damU = (Time.time - damageScaleStartTime) / damageScaleDuration;
+        damU = Mathf.Min(1, damU);
+        float scl = (1 - damU) * damageScale + damU * 1;
+        characterTrans.localScale = scl * Vector3.one;
 
         health -= dmg;
         health = Mathf.Min(_maxHealth, health);

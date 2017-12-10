@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3300000}
   - component: {fileID: 6500000}
   - component: {fileID: 2300000}
+  - component: {fileID: 114684814980775388}
   m_Layer: 8
   m_Name: TilePrefab
   m_TagString: Ground
@@ -95,3 +96,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
   m_IsPrefabParent: 1
+--- !u!114 &114684814980775388
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdee816477a257c44b74113ebb8bca4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 

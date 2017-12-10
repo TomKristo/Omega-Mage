@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Tile : MonoBehaviour {
+public class Tile : MonoBehaviour
+{
 
     public string type;
 
@@ -22,7 +23,7 @@ public class Tile : MonoBehaviour {
             AdjustHeight();
         }
     }
-    
+
     /*
     public string tex
     {

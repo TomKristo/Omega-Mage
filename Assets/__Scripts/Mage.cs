@@ -64,6 +64,7 @@ public class Mage : PT_MonoBehaviour {
 
     public MPhase mPhase = MPhase.idle;
     public List<MouseInfo> mouseInfos = new List<MouseInfo>();
+    public string actionStartTag;
 
     public bool walking = false;
     public Vector3 walkTarget;
@@ -183,28 +184,58 @@ public class Mage : PT_MonoBehaviour {
     void MouseDown()
     {
         if (DEBUG) print("Mage.MouseDown()");
+
+        GameObject clickedGO = mouseInfos[0].hitInfo.collider.gameObject;
+
+        GameObject taggedParent = Utils.FindTaggedParent(clickedGO);
+        if (taggedParent == null)
+        {
+            actionStartTag = "";
+        }
+        else
+        {
+            actionStartTag = taggedParent.tag;
+        }
     }
 
     void MouseTap()
     {
         if (DEBUG) print("Mage.MouseTap()");
 
-        WalkTo(lastMouseInfo.loc);
-        ShowTap(lastMouseInfo.loc);
+        switch (actionStartTag)
+        {
+            case "Mage":
+                break;
+            case "Ground":
+                WalkTo(lastMouseInfo.loc);
+                ShowTap(lastMouseInfo.loc);
+                break;
+        }
+        
     }
 
     void MouseDrag()
     {
         if (DEBUG) print("Mage.MouseDrag()");
 
-        WalkTo(mouseInfos[mouseInfos.Count - 1].loc);
+        if (actionStartTag != "Ground") return;
+
+        if (selectedElements.Count == 0)
+        {
+            WalkTo(mouseInfos[mouseInfos.Count - 1].loc);
+        }
     }
 
     void MouseDragUp()
     {
         if (DEBUG) print("Mage.MouseDragUp()");
 
-        StopWalking();
+        if (actionStartTag != "Ground") return;
+
+        if (selectedElements.Count == 0)
+        {
+            StopWalking();
+        }
     }
 
     public void WalkTo(Vector3 xTarget)

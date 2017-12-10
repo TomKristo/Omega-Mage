@@ -63,9 +63,11 @@ public class Mage : PT_MonoBehaviour {
     public float lineMinDelta = 0.1f;
     public float lineMaxDelta = 0.5f;
     public float lineMaxLength = 8f;
+    public GameObject fireGroundSpellPrefab;
 
     public bool ________________;
 
+    protected Transform spellAnchor;
     public float totalLineLength;
     public List<Vector3> linePts;
     protected LineRenderer liner;
@@ -89,6 +91,9 @@ public class Mage : PT_MonoBehaviour {
 
         liner = GetComponent<LineRenderer>();
         liner.enabled = false;
+
+        GameObject saGO = new GameObject("Spell Anchor");
+        spellAnchor = saGO.transform;
     }
 
     void Update()
@@ -253,8 +258,29 @@ public class Mage : PT_MonoBehaviour {
         }
         else
         {
+            CastGroundSpell();
             ClearLiner();
         }
+    }
+
+    void CastGroundSpell()
+    {
+        if (selectedElements.Count == 0) return;
+
+        switch (selectedElements[0].type)
+        {
+            case ElementType.fire:
+                GameObject fireGO;
+                foreach (Vector3 pt in linePts)
+                {
+                    fireGO = Instantiate(fireGroundSpellPrefab) as GameObject;
+                    fireGO.transform.parent = spellAnchor;
+                    fireGO.transform.position = pt;
+                }
+                break;
+                //TODO: Add other elements types later
+        }
+        ClearElements();
     }
 
     public void WalkTo(Vector3 xTarget)

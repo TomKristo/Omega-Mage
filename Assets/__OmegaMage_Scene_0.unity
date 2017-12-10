@@ -271,6 +271,11 @@ Prefab:
       propertyPath: elementColors.Array.data[5].a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114812402539409450, guid: 06d786368719c4ecd931c5fc5fd9bd73,
+        type: 2}
+      propertyPath: fireGroundSpellPrefab
+      value: 
+      objectReference: {fileID: 100000, guid: 1bddc976e84cc4c52b55874a26454b75, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 06d786368719c4ecd931c5fc5fd9bd73, type: 2}
   m_IsPrefabParent: 0

@@ -513,6 +513,7 @@ MonoBehaviour:
     tex: {fileID: 2800000, guid: f769ef7f94b744c1cb8a76a1b7244bab, type: 3}
   - str: stone
     tex: {fileID: 2800000, guid: 51913b142672e46bfb3c90299e5f38f4, type: 3}
+  portalPrefab: {fileID: 100000, guid: aa127d48e561348ed8c31db53e98ef53, type: 2}
   ________________: 0
   roomsXMLR:
     xmlText: 

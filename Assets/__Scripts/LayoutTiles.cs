@@ -78,28 +78,7 @@ public class LayoutTiles : MonoBehaviour {
         return (null);
     }
 
-    
-    public void BuildRoom(string rNumStr)
-    {
-        PT_XMLHashtable roomHT = null;
-        for (int i = 0; i < roomsXML.Count; i++)
-        {
-            PT_XMLHashtable ht = roomsXML[i];
-            if (ht.att("num") == rNumStr)
-            {
-                roomHT = ht;
-                break;
-            }
-        }
-        if (roomHT == null)
-        {
-            Utils.tr("ERROR", "LayoutTiles.BuildRoom()", "Room not found: " + rNumStr);
-            return;
-        }
-        BuildRoom(roomHT);
-    }
-    
-    
+   
     public void BuildRoom(PT_XMLHashtable room)
     {
         foreach (Transform t in tileAnchor)

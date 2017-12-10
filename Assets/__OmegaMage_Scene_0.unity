@@ -556,6 +556,17 @@ MonoBehaviour:
   - str: stone
     tex: {fileID: 2800000, guid: 51913b142672e46bfb3c90299e5f38f4, type: 3}
   portalPrefab: {fileID: 100000, guid: aa127d48e561348ed8c31db53e98ef53, type: 2}
+  enemyDefinitions:
+  - str: b
+    go: {fileID: 100024, guid: ba42e4efdc6af4de7be09893346c4bb5, type: 2}
+  - str: ^
+    go: {fileID: 100002, guid: c73ae1002011944afad4491c1b0eb9d8, type: 2}
+  - str: v
+    go: {fileID: 100002, guid: c73ae1002011944afad4491c1b0eb9d8, type: 2}
+  - str: '{'
+    go: {fileID: 100002, guid: c73ae1002011944afad4491c1b0eb9d8, type: 2}
+  - str: '}'
+    go: {fileID: 100002, guid: c73ae1002011944afad4491c1b0eb9d8, type: 2}
   ________________: 0
   roomsXMLR:
     xmlText: 

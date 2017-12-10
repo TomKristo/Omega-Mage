@@ -10,6 +10,13 @@ public class TileTex
     public Texture2D tex;
 }
 
+[System.Serializable]
+public class EnemyDef
+{
+    public string str;
+    public GameObject go;
+}
+
 public class LayoutTiles : MonoBehaviour {
 
     static public LayoutTiles S;
@@ -20,6 +27,7 @@ public class LayoutTiles : MonoBehaviour {
     public GameObject tilePrefab;
     public TileTex[] tileTextures;
     public GameObject portalPrefab;
+    public EnemyDef[] enemyDefinitions;
 
     public bool ________________;
 
@@ -191,6 +199,13 @@ public class LayoutTiles : MonoBehaviour {
                         p.toRoom = rawType;
                         portals.Add(p);
                         break;
+                    default:
+                        Enemy en = EnemyFactory(rawType);
+                        if (en == null) break;
+                        en.pos = ti.pos;
+                        en.transform.parent = tileAnchor;
+                        en.typeString = rawType;
+                        break;
                 }
 
                 //More to come here...
@@ -209,6 +224,29 @@ public class LayoutTiles : MonoBehaviour {
         }
 
         roomNumber = rNumStr;
+    }
+
+    public Enemy EnemyFactory(string sType)
+    {
+        GameObject prefab = null;
+        foreach (EnemyDef ed in enemyDefinitions)
+        {
+            if (ed.str == sType)
+            {
+                prefab = ed.go;
+                break;
+            }
+        }
+        if (prefab == null)
+        {
+            Utils.tr("LayoutTiles.EnemyFactory()", "No EnemyDef for: " + sType);
+            return (null);
+        }
+
+        GameObject go = Instantiate(prefab) as GameObject;
+        Enemy en = (Enemy)go.GetComponent(typeof(Enemy));
+
+        return (en);
     }
 
 }

@@ -1618,6 +1618,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.5
+  health: 10
+  damageScale: 0.8
+  damageScaleDuration: 0.25
   ________________: 0
   walkTarget: {x: 0, y: 0, z: 0}
   walking: 0

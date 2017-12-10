@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 1821674992}
   - component: {fileID: 1821674991}
   - component: {fileID: 1821674990}
+  - component: {fileID: 1821674994}
   m_Layer: 0
   m_Name: _MainCamera
   m_TagString: MainCamera
@@ -257,3 +258,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1821674994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1821674989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c54b71bf77d397b408a184482015b308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomsText: {fileID: 4900000, guid: bdef848fe5fe34d08b3a284654524ea0, type: 3}
+  roomNumber: 0
+  tilePrefab: {fileID: 100000, guid: 84bf7187657d043eda6a4404d8d5abf6, type: 2}
+  tileTextures:
+  - str: dirt
+    tex: {fileID: 2800000, guid: f769ef7f94b744c1cb8a76a1b7244bab, type: 3}
+  - str: stone
+    tex: {fileID: 2800000, guid: 51913b142672e46bfb3c90299e5f38f4, type: 3}
+  ________________: 0
+  roomsXMLR:
+    xmlText: 
+  tileAnchor: {fileID: 0}

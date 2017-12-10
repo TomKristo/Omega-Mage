@@ -24,7 +24,6 @@ public class Tile : MonoBehaviour
         }
     }
 
-    /*
     public string tex
     {
         get
@@ -43,11 +42,10 @@ public class Tile : MonoBehaviour
             }
             else
             {
-                renderer.material.mainTexture = t2D;
+                GetComponent<Renderer>().material.mainTexture = t2D;
             }
         }
     }
-    */
 
     new public Vector3 pos
     {

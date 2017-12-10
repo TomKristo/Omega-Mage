@@ -19,9 +19,11 @@ public class LayoutTiles : MonoBehaviour {
 
     public GameObject tilePrefab;
     public TileTex[] tileTextures;
+    public GameObject portalPrefab;
 
     public bool ________________;
 
+    private bool firstRoom = true;
     public PT_XMLReader roomsXMLR;
     public PT_XMLHashList roomsXML;
     public Tile[,] tiles;
@@ -76,8 +78,40 @@ public class LayoutTiles : MonoBehaviour {
         return (null);
     }
 
+    
+    public void BuildRoom(string rNumStr)
+    {
+        PT_XMLHashtable roomHT = null;
+        for (int i = 0; i < roomsXML.Count; i++)
+        {
+            PT_XMLHashtable ht = roomsXML[i];
+            if (ht.att("num") == rNumStr)
+            {
+                roomHT = ht;
+                break;
+            }
+        }
+        if (roomHT == null)
+        {
+            Utils.tr("ERROR", "LayoutTiles.BuildRoom()", "Room not found: " + rNumStr);
+            return;
+        }
+        BuildRoom(roomHT);
+    }
+    
+    
     public void BuildRoom(PT_XMLHashtable room)
     {
+        foreach (Transform t in tileAnchor)
+        {
+            Destroy(t.gameObject);
+        }
+
+        Mage.S.pos = Vector3.left * 1000;
+        Mage.S.ClearInput();
+
+        string rNumStr = room.att("num");
+
         string floorTexStr = room.att("floor");
         string wallTexStr = room.att("wall");
 
@@ -95,6 +129,7 @@ public class LayoutTiles : MonoBehaviour {
         GameObject go;
         int height;
         float maxY = roomRows.Length - 1;
+        List<Portal> portals = new List<Portal>();
 
         for (int y = 0; y < roomRows.Length; y++)
         {
@@ -145,13 +180,56 @@ public class LayoutTiles : MonoBehaviour {
                 switch (rawType)
                 {
                     case "X":
-                        Mage.S.pos = ti.pos;
+                        //Mage.S.pos = ti.pos;
+                        if (firstRoom)
+                        {
+                            Mage.S.pos = ti.pos;
+                            roomNumber = rNumStr;
+                            firstRoom = false;
+                        }
+                        break;
+
+                    case "0":
+                    case "1":
+                    case "2":
+                    case "3":
+                    case "4":
+                    case "5":
+                    case "6":
+                    case "7":
+                    case "8":
+                    case "9":
+                    case "A":
+                    case "B":
+                    case "C":
+                    case "D":
+                    case "E":
+                    case "F":
+                        GameObject pGO = Instantiate(portalPrefab) as GameObject;
+                        Portal p = pGO.GetComponent<Portal>();
+                        p.pos = ti.pos;
+                        p.transform.parent = tileAnchor;
+                        p.toRoom = rawType;
+                        portals.Add(p);
                         break;
                 }
 
                 //More to come here...
             }
         }
+
+        foreach (Portal p in portals)
+        {
+            if (p.toRoom == roomNumber || firstRoom)
+            {
+                Mage.S.StopWalking();
+                Mage.S.pos = p.pos;
+                p.justArrived = true;
+                firstRoom = false;
+            }
+        }
+
+        roomNumber = rNumStr;
     }
 
 }

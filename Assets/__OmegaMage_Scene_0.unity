@@ -119,6 +119,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114812402539409450, guid: 06d786368719c4ecd931c5fc5fd9bd73,
+        type: 2}
+      propertyPath: elementPrefabs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 06d786368719c4ecd931c5fc5fd9bd73, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -151,6 +156,31 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114812402539409450, guid: 06d786368719c4ecd931c5fc5fd9bd73,
+        type: 2}
+      propertyPath: activeScreenWidth
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 114812402539409450, guid: 06d786368719c4ecd931c5fc5fd9bd73,
+        type: 2}
+      propertyPath: elementPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 100000, guid: 66ad41f2a71ba4b23a3c246befe4bde8, type: 2}
+    - target: {fileID: 114812402539409450, guid: 06d786368719c4ecd931c5fc5fd9bd73,
+        type: 2}
+      propertyPath: elementPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 100000, guid: daf45af0a167c4df29c284e530022191, type: 2}
+    - target: {fileID: 114812402539409450, guid: 06d786368719c4ecd931c5fc5fd9bd73,
+        type: 2}
+      propertyPath: elementPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 100000, guid: cf5e7183204c8448098d58443a84aa37, type: 2}
+    - target: {fileID: 114812402539409450, guid: 06d786368719c4ecd931c5fc5fd9bd73,
+        type: 2}
+      propertyPath: elementPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 100000, guid: 993e02f0129934f5291f9f3daeaa9e26, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 06d786368719c4ecd931c5fc5fd9bd73, type: 2}
   m_IsPrefabParent: 0
@@ -330,12 +360,12 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.49264705, g: 0.090560116, b: 0.090560116, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
+    width: 0.75
     height: 1
   near clip plane: 0.3
   far clip plane: 1000

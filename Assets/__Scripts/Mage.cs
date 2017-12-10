@@ -55,6 +55,11 @@ public class Mage : PT_MonoBehaviour {
     public float activeScreenWidth = 1;
     public float speed = 2;
 
+    public GameObject[] elementPrefabs;
+    public float elementRotDist = 0.5f;
+    public float elementRotSpeed = 0.5f;
+    public int maxNumSelectedElements = 1;
+
     public bool ________________;
 
     public MPhase mPhase = MPhase.idle;
@@ -63,6 +68,8 @@ public class Mage : PT_MonoBehaviour {
     public bool walking = false;
     public Vector3 walkTarget;
     public Transform characterTrans;
+
+    public List<Element> selectedElements = new List<Element>();
 
     void Awake()
     {
@@ -111,6 +118,11 @@ public class Mage : PT_MonoBehaviour {
                 {
                     mPhase = MPhase.drag;
                 }
+
+                if (selectedElements.Count == 0)
+                {
+                    mPhase = MPhase.drag;
+                }
             }
         }
 
@@ -128,6 +140,8 @@ public class Mage : PT_MonoBehaviour {
                 MouseDrag();
             }
         }
+
+        OrbitSelectedElements();
     }
 
     MouseInfo AddMouseInfo()
@@ -252,5 +266,62 @@ public class Mage : PT_MonoBehaviour {
     {
         GameObject go = Instantiate(tapIndicatorPrefab) as GameObject;
         go.transform.position = loc;
+    }
+
+    public void SelectElement(ElementType elType)
+    {
+        if (elType == ElementType.none)
+        {
+            ClearElements();
+            return;
+        }
+
+        if (maxNumSelectedElements == 1)
+        {
+            ClearElements();
+        }
+
+        if (selectedElements.Count >= maxNumSelectedElements) return;
+
+        GameObject go = Instantiate(elementPrefabs[(int)elType]) as GameObject;
+        Element el = go.GetComponent<Element>();
+        el.transform.parent = this.transform;
+
+        selectedElements.Add(el);
+    }
+
+    public void ClearElements()
+    {
+        foreach (Element el in selectedElements)
+        {
+            Destroy(el.gameObject);
+        }
+
+        selectedElements.Clear();
+    }
+
+    void OrbitSelectedElements()
+    {
+        if (selectedElements.Count == 0) return;
+
+        Element el;
+        Vector3 vec;
+        float theta0, theta;
+        float tau = Mathf.PI * 2;
+
+        float rotPerElement = tau / selectedElements.Count;
+        theta0 = elementRotSpeed * Time.time * tau;
+
+        for (int i = 0; i < selectedElements.Count; i++)
+        {
+            theta = theta0 + i * rotPerElement;
+            el = selectedElements[i];
+
+            vec = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 0);
+            vec *= elementRotDist;
+
+            vec.z = -0.5f;
+            el.lPos = vec;
+        }
     }
 }

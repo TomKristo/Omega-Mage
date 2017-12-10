@@ -17,6 +17,6 @@ public class ElementInventoryButton : MonoBehaviour {
 
     void OnMouseUpAsButton()
     {
-        //Mage.S.SelectElement(type);
+        Mage.S.SelectElement(type);
     }
 }

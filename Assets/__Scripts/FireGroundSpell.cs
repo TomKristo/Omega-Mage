@@ -9,6 +9,7 @@ public class FireGroundSpell : PT_MonoBehaviour {
 
     public float fadeTime = 1f;
     public float timeStart;
+    public float damagePerSecond = 10;
 
     void Start()
     {
@@ -47,6 +48,14 @@ public class FireGroundSpell : PT_MonoBehaviour {
         Utils.tr("Flame hit", go.name);
     }
 
-    //TODO: Actually damage the other object
+    void OnTriggerStay(Collider other)
+    {
+        EnemyBug recipient = other.GetComponent<EnemyBug>();
+
+        if (recipient != null)
+        {
+            recipient.Damage(damagePerSecond, true);
+        }
+    }
 
 }

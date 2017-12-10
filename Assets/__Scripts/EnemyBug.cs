@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class EnemyBug : PT_MonoBehaviour {
     public float speed = 0.5f;
+    public float health = 10;
 
     public bool ________________;
 
+    private float _maxHealth;
     public Vector3 walkTarget;
     public bool walking;
     public Transform characterTrans;
@@ -14,6 +16,7 @@ public class EnemyBug : PT_MonoBehaviour {
     void Awake()
     {
         characterTrans = transform.Find("CharacterTrans");
+        _maxHealth = health;
     }
 
     void Update()
@@ -63,5 +66,26 @@ public class EnemyBug : PT_MonoBehaviour {
             rigidbody.velocity = Vector3.zero;
         }
 
+    }
+
+    public void Damage(float amt, bool damageOverTime = false)
+    {
+        if (damageOverTime)
+        {
+            amt *= Time.deltaTime;
+        }
+
+        health -= amt;
+        health = Mathf.Min(_maxHealth, health);
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }

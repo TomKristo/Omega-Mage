@@ -54,7 +54,7 @@ public class FireGroundSpell : PT_MonoBehaviour {
 
         if (recipient != null)
         {
-            recipient.Damage(damagePerSecond, true);
+            recipient.Damage(damagePerSecond, ElementType.fire, true);
         }
     }
 

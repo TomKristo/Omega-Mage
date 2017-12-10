@@ -12,11 +12,28 @@ public class EnemyBug : PT_MonoBehaviour {
     public Vector3 walkTarget;
     public bool walking;
     public Transform characterTrans;
+    public Dictionary<ElementType, float> damageDict;
 
     void Awake()
     {
         characterTrans = transform.Find("CharacterTrans");
         _maxHealth = health;
+        ResetDamageDict();
+    }
+
+    void ResetDamageDict()
+    {
+        if(damageDict == null)
+        {
+            damageDict = new Dictionary<ElementType, float>();
+        }
+        damageDict.Clear();
+        damageDict.Add(ElementType.earth, 0);
+        damageDict.Add(ElementType.water, 0);
+        damageDict.Add(ElementType.air, 0);
+        damageDict.Add(ElementType.fire, 0);
+        damageDict.Add(ElementType.aether, 0);
+        damageDict.Add(ElementType.none, 0);
     }
 
     void Update()
@@ -68,15 +85,38 @@ public class EnemyBug : PT_MonoBehaviour {
 
     }
 
-    public void Damage(float amt, bool damageOverTime = false)
+    public void Damage(float amt, ElementType eT, bool damageOverTime = false)
     {
         if (damageOverTime)
         {
             amt *= Time.deltaTime;
         }
 
-        health -= amt;
+        switch (eT)
+        {
+            case ElementType.fire:
+                damageDict[eT] = Mathf.Max(amt, damageDict[eT]);
+                break;
+            case ElementType.air:
+                break;
+            default:
+                damageDict[eT] += amt;
+                break;
+        }
+    }
+
+    void LateUpdate()
+    {
+        float dmg = 0;
+        foreach (KeyValuePair<ElementType, float> entry in damageDict)
+        {
+            dmg += entry.Value;
+        }
+
+        health -= dmg;
         health = Mathf.Min(_maxHealth, health);
+
+        ResetDamageDict();
 
         if (health <= 0)
         {

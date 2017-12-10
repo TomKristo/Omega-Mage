@@ -2,7 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBug : PT_MonoBehaviour {
+public class EnemyBug : PT_MonoBehaviour, Enemy {
+
+    [SerializeField]
+    private float _touchDamage = 1;
+    public float touchDamage
+    {
+        get { return (_touchDamage); }
+        set { _touchDamage = value; }
+    }
+
     public float speed = 0.5f;
     public float health = 10;
     public float damageScale = 0.8f;

@@ -379,7 +379,8 @@ public class Mage : PT_MonoBehaviour {
         }
 
         EnemyBug bug = coll.gameObject.GetComponent<EnemyBug>();
-        if (bug != null) CollisionDamage(otherGO);
+        if (bug != null) CollisionDamage(bug);
+        //if (bug != null) CollisionDamage(otherGO);
     }
 
     void OnTriggerEnter(Collider other)
@@ -387,18 +388,19 @@ public class Mage : PT_MonoBehaviour {
         EnemySpiker spiker = other.GetComponent<EnemySpiker>();
         if (spiker != null)
         {
-            CollisionDamage(other.gameObject);
+            CollisionDamage(spiker);
+            //CollisionDamage(other.gameObject);
         }
     }
 
-    void CollisionDamage(GameObject enemy)
+    void CollisionDamage(Enemy enemy)
     {
         if (invincibleBool) return;
 
         StopWalking();
         ClearInput();
 
-        health -= 1;
+        health -= enemy.touchDamage;
         if (health <= 0)
         {
             Die();
@@ -407,7 +409,7 @@ public class Mage : PT_MonoBehaviour {
 
         damageTime = Time.time;
         knockbackBool = true;
-        knockbackDir = (pos - enemy.transform.position).normalized;
+        knockbackDir = (pos - enemy.pos).normalized;
         invincibleBool = true;
     }
 
